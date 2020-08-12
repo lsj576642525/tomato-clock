@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Modal, Space } from "antd";
+import { Button, Input, Modal } from "antd";
 import {
   CloseCircleOutlined,
   ExclamationCircleOutlined,
@@ -85,10 +85,6 @@ class TomatoAction extends React.Component<IProps, IState> {
       const startedAt = Date.parse(this.props.unFinishedTomatoes.started_at);
       const duration = this.props.unFinishedTomatoes.duration;
       const timeNow = new Date().getTime();
-      console.log(startedAt);
-      console.log(duration);
-      console.log(timeNow);
-      console.log(timeNow - startedAt > duration);
       if (timeNow - startedAt > duration) {
         html = (
           <div>

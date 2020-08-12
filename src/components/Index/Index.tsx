@@ -40,7 +40,7 @@ class Index extends React.Component<IRouter, IState> {
     </Menu>
   );
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.getMe();
   }
 

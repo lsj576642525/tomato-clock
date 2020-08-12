@@ -15,7 +15,6 @@ class TodoInput extends React.Component<any, IState> {
     this.state = {
       description: "",
     };
-    console.log(this.props);
   }
 
   onDescriptionChange = (e: any) => {
