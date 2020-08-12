@@ -8,21 +8,41 @@ import {
 import axios from "../../config/axios";
 import Todos from "../../components/Todos/Todos";
 import Tomatoes from "../../components/Tomatoes/Tomatoes";
+import Statistics from "../../components/Statistics/Statistics";
+import { initTodos } from "../../redux/actions";
+import { initTomatoes } from "../../redux/actions";
+import { connect } from "react-redux";
 
-interface IRouter {
-  history: any;
-}
 interface IState {
   user: any;
 }
 
-class Index extends React.Component<IRouter, IState> {
+class Index extends React.Component<any, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
       user: {},
     };
   }
+
+  getTodos = async () => {
+    try {
+      const response = await axios.get("todos");
+      const todos = response.data.resources.map((t: any) =>
+        Object.assign({}, t, { editing: false })
+      );
+      this.props.initTodos(todos);
+    } catch (e) {}
+  };
+
+  getTomatoes = async () => {
+    try {
+      const response = await axios.get("tomatoes");
+      this.props.initTomatoes(response.data.resources);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 
   logout = () => {
     localStorage.setItem("x-token", "");
@@ -42,6 +62,8 @@ class Index extends React.Component<IRouter, IState> {
 
   async componentDidMount() {
     await this.getMe();
+    await this.getTodos();
+    await this.getTomatoes();
   }
 
   getMe = async () => {
@@ -74,9 +96,18 @@ class Index extends React.Component<IRouter, IState> {
           <Tomatoes />
           <Todos />
         </main>
+        <Statistics />
       </div>
     );
   }
 }
 
-export default Index;
+const mapStateToProps = (state: any, ownProps: any) => ({
+  todos: state.todos,
+  tomatoes: state.tomatoes,
+  ...ownProps,
+});
+
+const mapDispatchToProps = { initTodos, initTomatoes };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
