@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import axios from "../../config/axios";
 import Todos from "../../components/Todos/Todos";
+import Tomatoes from "../../components/Tomatoes/Tomatoes";
 
 interface IRouter {
   history: any;
@@ -70,6 +71,7 @@ class Index extends React.Component<IRouter, IState> {
           </Dropdown>
         </header>
         <main>
+          <Tomatoes />
           <Todos />
         </main>
       </div>
