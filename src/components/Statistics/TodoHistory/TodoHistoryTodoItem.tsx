@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { format } from "date-fns";
 import { updateTodo } from "../../../redux/actions";
 import axios from "../../../config/axios";
+import "./TodoHistoryTodoItem.scss";
 
 interface IProps {
   todo: any;
@@ -35,7 +36,7 @@ class TodoHistoryTodoItem extends React.Component<IProps> {
           <span
             onClick={() =>
               this.updateTodo({
-                finished: false,
+                completed: false,
               })
             }
           >
@@ -70,10 +71,10 @@ class TodoHistoryTodoItem extends React.Component<IProps> {
       );
     }
     return (
-      <div>
+      <div className="TodoHistoryTodoItem" id="TodoHistoryTodoItem">
         <div className="text">
-          <span>{format(time, formatText)}</span>
-          <span>{this.props.todo.description}</span>
+          <span className="time">{format(time, formatText)}</span>
+          <span className="description">{this.props.todo.description}</span>
         </div>
         {action}
       </div>

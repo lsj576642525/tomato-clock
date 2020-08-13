@@ -2,6 +2,7 @@ import React from "react";
 import TodoInput from "./TodoInput";
 import TodoItem from "./TodoItem";
 import { connect } from "react-redux";
+import "./Todos.scss";
 
 // interface IState {
 //   todos: any[];
@@ -29,16 +30,16 @@ class Todos extends React.Component<any> {
 
   render() {
     return (
-      <div>
+      <div className="Todos" id="Todos">
         <TodoInput />
-        <main>
+        <div className="todoLists">
           {this.unCompletedTodos.map((t: any) => (
             <TodoItem key={t.id} {...t} />
           ))}
           {/* {this.completedTodos.map((t: any) => (
             <TodoItem key={t.id} {...t} />
           ))} */}
-        </main>
+        </div>
       </div>
     );
   }

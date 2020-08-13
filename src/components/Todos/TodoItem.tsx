@@ -1,9 +1,11 @@
 import React from "react";
-import { Checkbox, Input } from "antd";
-import { EnterOutlined, DeleteFilled } from "@ant-design/icons";
+import { Checkbox } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { editTodo, updateTodo } from "../../redux/actions";
 import axios from "../../config/axios";
+import classNames from "classnames";
+import "./TodoItem.scss";
 
 interface IState {
   editText: string;
@@ -50,20 +52,28 @@ class TodoItem extends React.Component<IProps, IState> {
   render() {
     const Editing = (
       <div className="editing">
-        <Input
+        <input
           value={this.state.editText}
           onChange={(e) => this.setState({ editText: e.target.value })}
           onKeyUp={this.onKeyUp}
-        ></Input>
+        ></input>
         <div className="iconWrapper">
-          <EnterOutlined />
           <DeleteFilled onClick={() => this.updateTodo({ deleted: true })} />
         </div>
       </div>
     );
-    const Text = <span onClick={this.editTodo}>{this.props.description}</span>;
+    const Text = (
+      <span className="text" onClick={this.editTodo}>
+        {this.props.description}
+      </span>
+    );
+    const todoItemClass = classNames({
+      TodoItem: true,
+      editing: this.props.editing,
+      completed: this.props.completed,
+    });
     return (
-      <div>
+      <div className={todoItemClass} id="TodoItem">
         <Checkbox
           checked={this.props.completed}
           onChange={(e: any) => {

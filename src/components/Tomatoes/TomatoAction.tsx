@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons";
 import axios from "../../config/axios";
 import CountDown from "./CountDown";
+import "./TomatoAction.scss";
 
 const { confirm } = Modal;
 
@@ -80,35 +81,50 @@ class TomatoAction extends React.Component<IProps, IState> {
     let html = <div></div>;
 
     if (this.props.unFinishedTomatoes === undefined) {
-      html = <Button onClick={() => this.props.startTomato()}>开始番茄</Button>;
+      html = (
+        <Button
+          className="startTomatoButton"
+          onClick={() => this.props.startTomato()}
+        >
+          开始番茄
+        </Button>
+      );
     } else {
       const startedAt = Date.parse(this.props.unFinishedTomatoes.started_at);
       const duration = this.props.unFinishedTomatoes.duration;
       const timeNow = new Date().getTime();
       if (timeNow - startedAt > duration) {
         html = (
-          <div>
+          <div className="inputWrapper">
             <Input
               value={this.state.description}
               placeholder="请输入你刚刚完成的任务"
               onChange={(e) => this.setState({ description: e.target.value })}
               onKeyUp={(e) => this.onKeyUp(e)}
             />
-            <CloseCircleOutlined onClick={this.showConfirm} />
+            <CloseCircleOutlined className="abort" onClick={this.showConfirm} />
           </div>
         );
       } else if (timeNow - startedAt < duration) {
         const timer = startedAt + duration - timeNow;
         html = (
-          <div>
-            <CountDown timer={timer} onFinish={this.onFinish} />
-            <CloseCircleOutlined onClick={this.showConfirm} />
+          <div className="countDownWrapper">
+            <CountDown
+              duration={duration}
+              timer={timer}
+              onFinish={this.onFinish}
+            />
+            <CloseCircleOutlined className="abort" onClick={this.showConfirm} />
           </div>
         ); // 倒计时
       }
     }
 
-    return <div>{html}</div>;
+    return (
+      <div className="TomatoAction" id="TomatoAction">
+        {html}
+      </div>
+    );
   }
 }
 

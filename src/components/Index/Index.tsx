@@ -12,6 +12,7 @@ import Statistics from "../../components/Statistics/Statistics";
 import { initTodos } from "../../redux/actions";
 import { initTomatoes } from "../../redux/actions";
 import { connect } from "react-redux";
+import "./Index.scss";
 
 interface IState {
   user: any;
@@ -39,9 +40,7 @@ class Index extends React.Component<any, IState> {
     try {
       const response = await axios.get("tomatoes");
       this.props.initTomatoes(response.data.resources);
-    } catch (error) {
-      throw new Error(error);
-    }
+    } catch (error) {}
   };
 
   logout = () => {
@@ -73,7 +72,6 @@ class Index extends React.Component<any, IState> {
         user: response.data,
       });
     } catch (error) {
-      console.error(error);
       if (error.response.status === 401) {
         this.props.history.push("/login");
       }
@@ -82,10 +80,10 @@ class Index extends React.Component<any, IState> {
 
   render() {
     return (
-      <div>
+      <div className="Home" id="Home">
         <header>
           {/* <p>欢迎：{this.state.user && this.state.user.account}</p> */}
-          <span>番茄闹钟</span>
+          <span className="logo">番茄闹钟</span>
           <Dropdown overlay={this.menu}>
             <span>
               {this.state.user && this.state.user.account} <DownOutlined />

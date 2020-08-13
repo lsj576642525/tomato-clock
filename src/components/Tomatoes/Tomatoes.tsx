@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { addTomato, updateTomato } from "../../redux/actions";
 import _ from "lodash";
 import { format } from "date-fns";
+import "./Tomatoes.scss";
 
 interface IProps {
   addTomato: (payload: any) => any;
@@ -51,7 +52,7 @@ class Tomatoes extends React.Component<IProps> {
 
   render() {
     return (
-      <div>
+      <div className="Tomatoes" id="Tomatoes">
         <TomatoAction
           startTomato={this.startTomato}
           unFinishedTomatoes={this.unFinishedTomatoes}

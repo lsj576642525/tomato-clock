@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import _ from "lodash";
 import { Tabs } from "antd";
 import TodoHistoryTodoItem from "./TodoHistoryTodoItem";
+import "./TodoHistory.scss";
 
 const { TabPane } = Tabs;
 
@@ -40,12 +41,14 @@ class TodoHistory extends React.Component<IProps> {
   render() {
     const finishedTodoList = this.finishedDates.map((date) => {
       return (
-        <div key={date}>
-          <div>
-            {date}
-            完成了{this.dailyFinishedTodos[date].length}个任务
+        <div key={date} className="dailyTodos">
+          <div className="summary">
+            <p className="date">{date}</p>
+            <p className="finishedCount">
+              完成了{this.dailyFinishedTodos[date].length}个任务
+            </p>
           </div>
-          <div>
+          <div className="todoList">
             {this.dailyFinishedTodos[date].map((todo) => (
               <TodoHistoryTodoItem
                 key={todo.id}
@@ -65,16 +68,18 @@ class TodoHistory extends React.Component<IProps> {
     });
 
     return (
-      <div>
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="已完成的任务" key="1">
-            <div>{finishedTodoList}</div>
-          </TabPane>
-          <TabPane tab="已删除的任务" key="2">
-            <div>{deletedTodoList}</div>
-          </TabPane>
-        </Tabs>
-      </div>
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="已完成的任务" key="1">
+          <div className="TodoHistory" id="TodoHistory">
+            {finishedTodoList}
+          </div>
+        </TabPane>
+        <TabPane tab="已删除的任务" key="2">
+          <div className="TodoHistory" id="TodoHistory">
+            {deletedTodoList}
+          </div>
+        </TabPane>
+      </Tabs>
     );
   }
 }

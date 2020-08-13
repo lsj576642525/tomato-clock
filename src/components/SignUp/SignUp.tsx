@@ -3,6 +3,7 @@ import { Input, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import axios from "../../config/axios";
 import { Link } from "react-router-dom";
+import "./SignUp.scss";
 
 interface IState {
   account: string;
@@ -52,7 +53,8 @@ class SignUp extends React.Component<any, IState> {
   render() {
     const { account, password, password_confirmation } = this.state;
     return (
-      <div>
+      <div className="SignUp" id="SignUp">
+        <h1>番茄🍅闹钟注册</h1>
         <Input
           placeholder="请输入用户名"
           prefix={<UserOutlined />}
@@ -69,7 +71,9 @@ class SignUp extends React.Component<any, IState> {
           value={password_confirmation}
           onChange={this.onPasswordConfirmationChange}
         />
-        <Button onClick={this.submit}>注册</Button>
+        <Button type="primary" className="signUpButton" onClick={this.submit}>
+          注册
+        </Button>
         <p>
           如果你有账号，请立即 <Link to="/login">登录</Link>
         </p>
