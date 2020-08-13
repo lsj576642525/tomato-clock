@@ -6,26 +6,24 @@ interface IProps {
 }
 
 class Polygon extends React.Component<IProps> {
-  constructor(props: any) {
-    super(props);
-  }
-
   point = () => {
     const dates = Object.keys(this.props.data).sort(
       (a, b) => Date.parse(a) - Date.parse(b)
     );
     const firstDay = dates[0];
     if (firstDay) {
-      const lastDay = dates[dates.length - 1];
-      const range = Date.parse(lastDay) - Date.parse(firstDay);
+      const lastDay = new Date().getTime();
+      const range = lastDay - Date.parse(firstDay);
       let finishedCount = 0;
+      let finishedY;
       const pointArr = dates.map((date) => {
         const x = ((Date.parse(date) - Date.parse(firstDay)) / range) * 240;
         finishedCount += this.props.data[date].length;
         const y = (1 - finishedCount / this.props.totalFinishedCount) * 60;
+        finishedY = y;
         return `${x},${y}`;
       });
-      return ["0,60", ...pointArr, "240,60"].join(" ");
+      return ["0,60", ...pointArr, `240,${finishedY}`, "240,60"].join(" ");
     } else {
       return "0,60 240,60 0,60";
     }
