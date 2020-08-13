@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import Polygon from "../Polygon";
 import { format } from "date-fns";
 import _ from "lodash";
 import { Tabs } from "antd";
